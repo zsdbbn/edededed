@@ -6,12 +6,12 @@ import { connect } from 'cloudflare:sockets';
 // [Windows] Press "Win + R", input cmd and run:  Powershell -NoExit -Command "[guid]::NewGuid()"
 let userID = '90cd4a77-141a-43c9-991b-08263cfe9c10';
 
-let proxyIP = '';// 小白勿动，该地址并不影响你的网速，这是给CF代理使用的。'cdn.xn--b6gac.eu.org', 'cdn-all.xn--b6gac.eu.org', 'edgetunnel.anycast.eu.org'
+let proxyIP = '';// 
 
-//let sub = '';// 留空则显示原版内容
-let sub = 'sub.cmliussss.workers.dev';// 内置优选订阅生成器，可自行搭建 https://github.com/cmliu/WorkerVless2sub
-let subconverter = 'api.v1.mk';// clash订阅转换后端，目前使用肥羊的订阅转换功能。支持自建psub 可自行搭建https://github.com/bulianglin/psub
-let subconfig = "https://raw.githubusercontent.com/cmliu/edgetunnel/main/Clash/config/ACL4SSR_Online_Full_MultiMode.ini"; //订阅配置文件
+//let sub = '';// 
+let sub = '';// 
+let subconverter = 'api.v1.mk';// 
+let subconfig = "https://raw.githubusercontent.com/cmliu/edgetunnel/main/Clash/config/ACL4SSR_Online_Full_MultiMode.ini"; //
 // The user name and password do not contain special characters
 // Setting the address will ignore proxyIP
 // Example:  user:pass@host:port  or  host:port
@@ -785,7 +785,7 @@ function socks5AddressParser(address) {
  * @returns {Promise<string>}
  */
 async function getVLESSConfig(userID, hostName, sub, userAgent, RproxyIP) {
-	// 如果sub为空，则显示原始内容
+	// 
 	if (!sub || sub === '') {
 		const vlessMain = `vless://${userID}@${hostName}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#${hostName}`;
   
@@ -848,16 +848,16 @@ async function getVLESSConfig(userID, hostName, sub, userAgent, RproxyIP) {
 		  host: ${hostName}
 	---------------------------------------------------------------
 	################################################################
-	telegram 交流群 技术大佬~在线发牌!
-	https://t.me/CMLiussss
+	
+	
 	---------------------------------------------------------------
-	github 项目地址 Star!Star!Star!!!
-	https://github.com/cmliu/edgetunnel
+	
+	
 	---------------------------------------------------------------
 	################################################################
 	`;
 	} else if (sub && userAgent.includes('clash')) {
-	  // 如果sub不为空且UA为clash，则发起特定请求
+	  // 
 	  	if (typeof fetch === 'function') {
 			try {
 				const response = await fetch(`https://${subconverter}/sub?target=clash&url=https%3A%2F%2F${sub}%2Fsub%3Fhost%3D${hostName}%26uuid%3D${userID}%26edgetunnel%3Dcmliu%26proxyip%3D${RproxyIP}&insert=false&config=${encodeURIComponent(subconfig)}&emoji=true&list=false&tfo=false&scv=false&fdn=false&sort=false&new_name=true`);
@@ -871,7 +871,7 @@ async function getVLESSConfig(userID, hostName, sub, userAgent, RproxyIP) {
 			return 'Error: fetch is not available in this environment.';//
 	  	}
 	} else if (sub && userAgent.includes('sing-box') || userAgent.includes('singbox')) {
-		// 如果sub不为空且UA为sing-box，则发起特定请求
+		// 
 		if (typeof fetch === 'function') {
 			try {
 				const response = await fetch(`https://${subconverter}/sub?target=singbox&url=https%3A%2F%2F${sub}%2Fsub%3Fhost%3D${hostName}%26uuid%3D${userID}%26edgetunnel%3Dcmliu%26proxyip%3D${RproxyIP}&insert=false&config=${encodeURIComponent(subconfig)}&emoji=true&list=false&tfo=false&scv=false&fdn=false&sort=false&new_name=true`);
@@ -885,7 +885,7 @@ async function getVLESSConfig(userID, hostName, sub, userAgent, RproxyIP) {
 			return '错误: 在此环境中不支持 fetch。';
 		}
 	} else {
-	  	// 如果sub不为空且UA，则发起一般请求
+	  	// 
 	  	if (typeof fetch === 'function') {
 			try {
 		  		const response = await fetch(`https://${sub}/sub?host=${hostName}&uuid=${userID}&edgetunnel=cmliu&proxyip=${RproxyIP}`);
